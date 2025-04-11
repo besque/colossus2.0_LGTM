@@ -56,6 +56,35 @@ header {
     padding: 1rem 0;
 }
 
+.diagonal-section {
+    position: relative;
+    background: url('your-image.jpg') no-repeat center center/cover;
+    transform: skewY(-5deg);
+    margin-top: -50px; /* pulls it up to blend better with previous section */
+    z-index: 1;
+  }
+  
+  .diagonal-section .content {
+    transform: skewY(5deg); /* cancels the skew for content inside */
+    padding: 150px 20px;
+    color: white;
+    text-align: center;
+  }
+  
+  .diagonal-section h1 {
+    font-size: 4rem;
+    font-weight: bold;
+  }
+  
+
+.rubik-80s-fade-regular {
+    font-family: "Rubik 80s Fade", system-ui;
+    font-size: 6rem;
+    font-weight: 530;
+    font-style: normal;
+  }
+  
+
 .header-container {
     display: flex;
     justify-content: space-between;

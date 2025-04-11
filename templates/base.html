@@ -9,7 +9,9 @@
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Karla:wght@400;700&display=swap" rel="stylesheet">
-    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik+80s+Fade&display=swap" rel="stylesheet">
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -46,10 +48,11 @@
                 </a>
             </div>
             <nav class="hidden md:block">
-                <ul class="flex space-x-8">
-                    <li><a href="{{ url_for('map') }}" class="text-white font-bold uppercase px-4 py-2 rounded hover:bg-white/20 transition-colors duration-300">My Green Map</a></li>
-                    <li><a href="{{ url_for('news') }}" class="text-white font-bold uppercase px-4 py-2 rounded hover:bg-white/20 transition-colors duration-300">News</a></li>
-                    <li><a href="{{ url_for('contact') }}" class="text-white font-bold uppercase px-4 py-2 rounded hover:bg-white/20 transition-colors duration-300">Contact</a></li>
+                <ul class="flex space-x-4">
+                    <li><a href="{{ url_for('map') }}" class="bg-secondary-green text-white font-bold uppercase px-8 py-3 rounded hover:bg-primary-green transition-colors duration-300">MY TREE MAP™</a></li>
+                    <li><a href="{{ url_for('funding') }}" class="bg-secondary-green text-white font-bold uppercase px-8 py-3 rounded hover:bg-primary-green transition-colors duration-300">FUNDING</a></li>
+                    <li><a href="{{ url_for('news') }}" class="bg-secondary-green text-white font-bold uppercase px-8 py-3 rounded hover:bg-primary-green transition-colors duration-300">NEWS</a></li>
+                    <li><a href="{{ url_for('contact') }}" class="bg-secondary-green text-white font-bold uppercase px-8 py-3 rounded hover:bg-primary-green transition-colors duration-300">CONTACT</a></li>
                 </ul>
             </nav>
             <button class="md:hidden text-white">
