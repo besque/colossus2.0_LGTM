@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Urban Green Mapping Tool{% endblock %}</title>
-    <meta name="description" content="{% block description %}The Urban Green Mapping Tool is a Python-based solution designed to tackle urban heat islands. It leverages satellite heatmaps, road and rooftop data, and environmental insights to pinpoint overheated zones in cities and recommend strategic greening interventions.{% endblock %}">
+    <title>{% block title %}GreenGrids{% endblock %}</title>
+    <meta name="description" content="{% block description %}The GreenGrids is a Python-based solution designed to tackle urban heat islands. It leverages satellite heatmaps, road and rooftop data, and environmental insights to pinpoint overheated zones in cities and recommend strategic greening interventions.{% endblock %}">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -42,7 +42,7 @@
         <div class="container mx-auto px-4 flex justify-between items-center">
             <div class="flex items-center">
                 <a href="{{ url_for('index') }}" class="block">
-                    <img src="{{ url_for('static', filename='img/gglogo.webp') }}" alt="Urban Green Mapping Tool Logo" class="h-24 w-auto">
+                    <img src="{{ url_for('static', filename='img/gglogo.webp') }}" alt="GreenGrids Logo" class="h-24 w-auto">
                 </a>
             </div>
             <nav class="hidden md:block">
@@ -68,7 +68,7 @@
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div>
-                    <h3 class="text-xl font-bold mb-4">Urban Green Mapping Tool</h3>
+                    <h3 class="text-xl font-bold mb-4">GreenGrids</h3>
                     <p class="mb-4">Making cities cooler, greener, and more livable with data-driven insights.</p>
                 </div>
                 <div>
@@ -84,7 +84,7 @@
                 </div>
             </div>
             <div class="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="mb-4 md:mb-0">Copyright © 2025 Urban Green Mapping Tool</p>
+                <p class="mb-4 md:mb-0">Copyright © 2025 GreenGrids</p>
                 <ul class="flex space-x-4">
                     <li><a href="#" class="text-white hover:text-secondary-green transition-colors duration-300">Terms and Conditions</a></li>
                     <li><a href="#" class="text-white hover:text-secondary-green transition-colors duration-300">Privacy Policy</a></li>
