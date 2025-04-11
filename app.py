@@ -14,6 +14,7 @@ def map():
 def funding():
     return render_template('funding.html')
 
+
 @app.route('/news')
 def news():
     return render_template('news.html')
