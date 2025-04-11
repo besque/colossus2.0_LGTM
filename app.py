@@ -10,6 +10,10 @@ def index():
 def map():
     return render_template('map.html')
 
+@app.route('/funding')
+def funding():
+    return render_template('funding.html')
+
 @app.route('/news')
 def news():
     return render_template('news.html')
