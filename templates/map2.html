@@ -1,0 +1,256 @@
+{% extends "base.html" %}
+
+{% block title %}Green Grid - Urban Green Mapping Tool{% endblock %}
+
+{% block description %}Explore interactive heatmaps and analytics for urban greening strategies.{% endblock %}
+
+{% block content %}
+<section id="hero-section" class="relative h-[70vh] bg-cover bg-center flex items-center bg-dark-green">
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+    <div class="container mx-auto px-4 relative z-10 ml-[10%] md:ml-24 mt-24">
+        <div class="max-w-xl">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                Green Grid Map
+            </h1>
+            <p class="text-xl text-white mb-8 parkinsans-gen">Explore urban heat islands and discover strategic greening opportunities in your city.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Map Section -->
+<section class="pt-8">
+    <div class="container mx-auto px-4">
+        <p class="text-center mb-8 max-w-3xl mx-auto parkinsans-gen">
+            Select a city and year to view the urban heat map and analytics. 
+            This tool helps identify overheated zones and suggests greening interventions.
+        </p>
+        
+        <!-- Map Controls -->
+        <div class="flex flex-col md:flex-row justify-center items-center gap-6 mb-8 w-full max-w-6xl mx-auto">
+            <div class="w-full md:w-2/5">
+                <input type="text" placeholder="Enter city name" class="w-full px-6 py-4 text-lg rounded-lg border border-border-grey focus:outline-none focus:ring-2 focus:ring-primary-green">
+            </div>
+            
+            <div class="w-full md:w-1/4">
+                <select class="w-full px-6 py-4 text-lg rounded-lg border border-border-grey focus:outline-none focus:ring-2 focus:ring-primary-green">
+                    <option>Current</option>
+                    <option>2021</option>
+                    <option>2011</option>
+                    <option>2001</option>
+                </select>
+            </div>
+            
+            <div class="w-full md:w-1/4">
+                <button class="view-grid-btn w-full">
+                    ANALYZE
+                    <div class="star-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" viewBox="0 0 784.11 815.53" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <defs></defs>
+                            <g id="Layer_x0020_1">
+                                <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                                <path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"></path>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="star-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" viewBox="0 0 784.11 815.53" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <defs></defs>
+                            <g id="Layer_x0020_1">
+                                <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                                <path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"></path>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="star-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" viewBox="0 0 784.11 815.53" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <defs></defs>
+                            <g id="Layer_x0020_1">
+                                <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                                <path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"></path>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="star-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" viewBox="0 0 784.11 815.53" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <defs></defs>
+                            <g id="Layer_x0020_1">
+                                <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                                <path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"></path>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="star-5">
+                        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" viewBox="0 0 784.11 815.53" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <defs></defs>
+                            <g id="Layer_x0020_1">
+                                <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                                <path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"></path>
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="star-6">
+                        <svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd" viewBox="0 0 784.11 815.53" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <defs></defs>
+                            <g id="Layer_x0020_1">
+                                <metadata id="CorelCorpID_0Corel-Layer"></metadata>
+                                <path class="fil0" d="M392.05 0c-20.9,210.08 -184.06,378.41 -392.05,407.78 207.96,29.37 371.12,197.68 392.05,407.74 20.93,-210.06 184.09,-378.37 392.05,-407.74 -207.98,-29.38 -371.16,-197.69 -392.06,-407.78z"></path>
+                            </g>
+                        </svg>
+                    </div>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Map Placeholder -->
+        <div class="h-96 bg-gray-200 rounded-lg shadow-md flex items-center justify-center mb-12">
+            <p class="text-medium-grey text-xl">Map will be displayed here</p>
+        </div>
+    </div>
+</section>
+
+<!-- Analytics Dashboard Section -->
+<section class="py-12 bg-white">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl font-bold text-center mb-12">Analytics Dashboard</h2>
+        
+        <!-- Grid for metrics -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <!-- Temperature Card -->
+            <div class="bg-white p-6 rounded-lg shadow-md border border-border-grey">
+                <h3 class="text-xl font-bold mb-2">Average Land Surface Temperature</h3>
+                <p class="text-2xl font-bold text-primary-green">32.4°C</p>
+                <p class="text-sm text-medium-grey mt-2">7.2°C above average</p>
+                <div class="w-full bg-gray-200 rounded-full h-2 mt-4">
+                    <div class="bg-secondary-green h-2 rounded-full" style="width: 75%"></div>
+                </div>
+            </div>
+            
+            <!-- AQI Card -->
+            <div class="bg-white p-6 rounded-lg shadow-md border border-border-grey">
+                <h3 class="text-xl font-bold mb-2">AQI (Air Quality Index)</h3>
+                <p class="text-2xl font-bold text-brown">156</p>
+                <p class="text-sm text-medium-grey mt-2">Unhealthy air quality</p>
+                <div class="w-full bg-gray-200 rounded-full h-2 mt-4">
+                    <div class="bg-brown h-2 rounded-full" style="width: 62%"></div>
+                </div>
+            </div>
+            
+            <!-- PM 2.5 Card -->
+            <div class="bg-white p-6 rounded-lg shadow-md border border-border-grey">
+                <h3 class="text-xl font-bold mb-2">PM 2.5</h3>
+                <p class="text-2xl font-bold text-primary-green">28 μg/m³</p>
+                <p class="text-sm text-medium-grey mt-2">Moderate concentration</p>
+                <div class="w-full bg-gray-200 rounded-full h-2 mt-4">
+                    <div class="bg-primary-green h-2 rounded-full" style="width: 38%"></div>
+                </div>
+            </div>
+            
+            <!-- PM 10 Card -->
+            <div class="bg-white p-6 rounded-lg shadow-md border border-border-grey">
+                <h3 class="text-xl font-bold mb-2">PM 10</h3>
+                <p class="text-2xl font-bold text-secondary-green">42 μg/m³</p>
+                <p class="text-sm text-medium-grey mt-2">Moderate concentration</p>
+                <div class="w-full bg-gray-200 rounded-full h-2 mt-4">
+                    <div class="bg-secondary-green h-2 rounded-full" style="width: 42%"></div>
+                </div>
+            </div>
+            
+            <!-- VOC Card -->
+            <div class="bg-white p-6 rounded-lg shadow-md border border-border-grey">
+                <h3 class="text-xl font-bold mb-2">VOC Concentration</h3>
+                <p class="text-2xl font-bold text-tan">320 ppb</p>
+                <p class="text-sm text-medium-grey mt-2">Elevated levels</p>
+                <div class="w-full bg-gray-200 rounded-full h-2 mt-4">
+                    <div class="bg-tan h-2 rounded-full" style="width: 52%"></div>
+                </div>
+            </div>
+            
+            <!-- GPI Card -->
+            <div class="bg-white p-6 rounded-lg shadow-md border border-border-grey">
+                <h3 class="text-xl font-bold mb-2">Greening Priority Index (GPI)</h3>
+                <p class="text-2xl font-bold text-brown">78</p>
+                <p class="text-sm text-medium-grey mt-2">High priority for intervention</p>
+                <div class="w-full bg-gray-200 rounded-full h-2 mt-4">
+                    <div class="bg-brown h-2 rounded-full" style="width: 78%"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recommendations Section -->
+        <div class="mt-12 bg-light-grey p-8 rounded-lg shadow-md">
+            <h3 class="text-2xl font-bold mb-4">Greening Recommendations</h3>
+            <p class="mb-4">Based on the current data, we recommend the following greening interventions:</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="flex items-start">
+                    <div class="bg-primary-green rounded-full p-2 mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="font-bold">Urban Tree Planting</h4>
+                        <p>Increase tree canopy by 12% in identified hot zones to reduce surface temperatures by up to 5°C.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="bg-primary-green rounded-full p-2 mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="font-bold">Green Roof Implementation</h4>
+                        <p>Convert 23% of suitable roof area to green roofs, focusing on commercial buildings.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="bg-primary-green rounded-full p-2 mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="font-bold">Permeable Pavements</h4>
+                        <p>Replace 18% of impermeable surfaces with permeable alternatives to improve cooling.</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-start">
+                    <div class="bg-primary-green rounded-full p-2 mr-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                        </svg>
+                    </div>
+                    <div>
+                        <h4 class="font-bold">Urban Gardens</h4>
+                        <p>Develop community gardens on 5% of available vacant land to improve air quality and reduce VOCs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const heroSection = document.getElementById('hero-section');
+        if (heroSection) {
+            heroSection.style.backgroundImage = "url('{{ url_for('static', filename='img/bgimage.jpeg') }}')";
+        }
+        
+        // Future map integration code will go here
+        console.log("Map page loaded successfully");
+        
+        // Example of how the analyze button might work in the future
+        const analyzeBtn = document.querySelector('button');
+        analyzeBtn.addEventListener('click', function() {
+            alert("Analyze functionality will be implemented when the actual map integration is complete.");
+        });
+    });
+</script>
+{% endblock %}

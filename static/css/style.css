@@ -1,3 +1,4 @@
+
 /* Global Styles */
 :root {
     --primary-green: #63ab4a;
@@ -22,6 +23,11 @@ body {
     color: var(--dark-green);
     line-height: 1.6;
     background-color: #fff;
+}
+
+/* Text class for paragraphs and normal text */
+.text-normal, p, li:not(.font-bold), label, input, textarea {
+    font-family: "Parkinsans", sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -79,10 +85,19 @@ header {
 
 .rubik-80s-fade-regular {
     font-family: "Rubik 80s Fade", system-ui;
+    text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8);
     font-size: 6rem;
     font-weight: 530;
     font-style: normal;
   }
+
+.parkinsans-gen{
+    font-family: "Parkinsans", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 475;
+    font-style: normal;
+  }
+  
   
 
 .header-container {
@@ -134,7 +149,8 @@ header {
     height: 100vh;
     position: relative;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
+    justify-content: flex-start;
     color: white;
 }
 
@@ -153,8 +169,10 @@ header {
     position: relative;
     z-index: 2;
     max-width: 800px;
-    margin-left: 10%; 
+    margin-left: 5%;
+    margin-bottom: 5%; 
     padding: 0 1rem;
+    align-items: flex-start;
 }
 
 .hero h1 {
@@ -394,6 +412,21 @@ footer {
         font-size: 3rem;
     }
 
+    .mini-hero {
+        height: 40vh;
+        display: flex;
+        align-items: flex-end; /* Aligns content to bottom */
+        justify-content: flex-start;
+    }
+
+    .mini-hero .hero-content {
+        margin-bottom: 2rem; /* Adjust this value as needed */
+    }
+
+    .mini-hero .rubik-80s-fade-regular {
+        font-size: 5rem; /* Slightly smaller for this specific placement */
+    }
+    
     .step {
         flex: 0 0 100%;
     }
