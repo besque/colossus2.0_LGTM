@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+{% block title %}Urban Green Mapping Tool - Home{% endblock %}
+
+{% block content %}
+<section id="hero-section" class="relative h-screen bg-cover bg-center flex items-center bg-dark-green">
+    <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+    <div class="container mx-auto px-4 relative z-10 ml-[10%] md:ml-24">
+        <div class="max-w-xl">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+                WE KNOW<br>URBAN HEAT,<br>DO YOU?
+            </h1>
+            <p class="text-xl text-white mb-8 max-w-lg">
+                The Urban Green Mapping Tool is a Python-based solution designed to tackle urban heat islands. It leverages satellite heatmaps, road and rooftop data, and environmental insights to pinpoint overheated zones in cities.
+            </p>
+            <a href="{{ url_for('map') }}" class="inline-block bg-secondary-green hover:bg-primary-green text-white font-bold uppercase py-4 px-8 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out tracking-wide relative overflow-hidden group">
+                <span class="relative z-10">MY GREEN MAP</span>
+                <span class="absolute inset-0 bg-gradient-to-r from-primary-green to-secondary-green opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="section features bg-light-grey py-20">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 relative">
+            NEW SOLUTIONS OF CURRENT PROBLEMS
+            <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-secondary-green mt-4"></span>
+        </h2>
+        <p class="text-lg text-center max-w-4xl mx-auto mb-12">The Urban Green Mapping Tool is a service that quickly delivers comprehensive information about urban heat islands and recommends strategic greening interventions, such as tree planting. The goal is to make cities cooler, greener, and more livable by guiding urban planning efforts with data-driven insights.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 duration-300">
+                <img src="{{ url_for('static', filename='img/feature1.jpg') }}" alt="Heat Mapping" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-3 text-dark-green">Heat Mapping</h3>
+                    <p class="text-gray-700">Identify urban heat islands and high-temperature zones in cities using satellite thermal imaging and environmental data.</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 duration-300">
+                <img src="{{ url_for('static', filename='img/feature2.jpg') }}" alt="Strategic Greening" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-3 text-dark-green">Strategic Greening</h3>
+                    <p class="text-gray-700">Get data-driven recommendations for tree planting and green space development to maximize cooling impact.</p>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 transform hover:-translate-y-1 duration-300">
+                <img src="{{ url_for('static', filename='img/feature3.jpg') }}" alt="Urban Planning" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <h3 class="text-xl font-bold mb-3 text-dark-green">Urban Planning</h3>
+                    <p class="text-gray-700">Guide urban development with insights that improve city livability, sustainability, and climate resilience.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 relative">
+            THE INFORMATION THAT YOU NEED
+            <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-secondary-green mt-4"></span>
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mt-12">
+            <div class="text-center">
+                <img src="{{ url_for('static', filename='img/icon1.svg') }}" alt="Heat Zone Location" class="w-16 h-16 mx-auto mb-4">
+                <h3 class="text-xl font-bold mb-2 text-dark-green">Heat Zone Location</h3>
+                <p class="text-gray-700">Precise mapping of urban heat islands and hot spots throughout the city.</p>
+            </div>
+            <div class="text-center">
+                <img src="{{ url_for('static', filename='img/icon2.svg') }}" alt="Temperature Analysis" class="w-16 h-16 mx-auto mb-4">
+                <h3 class="text-xl font-bold mb-2 text-dark-green">Temperature Analysis</h3>
+                <p class="text-gray-700">Detailed temperature data showing variations across different urban areas.</p>
+            </div>
+            <div class="text-center">
+                <img src="{{ url_for('static', filename='img/icon3.svg') }}" alt="Cooling Potential" class="w-16 h-16 mx-auto mb-4">
+                <h3 class="text-xl font-bold mb-2 text-dark-green">Cooling Potential</h3>
+                <p class="text-gray-700">Assessment of each area's potential for temperature reduction through greening.</p>
+            </div>
+            <div class="text-center">
+                <img src="{{ url_for('static', filename='img/icon4.svg') }}" alt="Tree Recommendations" class="w-16 h-16 mx-auto mb-4">
+                <h3 class="text-xl font-bold mb-2 text-dark-green">Tree Recommendations</h3>
+                <p class="text-gray-700">Specific suggestions for tree species and planting locations for maximum impact.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-light-grey">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-10 relative">
+            WHEREVER YOU ARE, GREEN SPACES ARE IMPORTANT
+            <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-16 h-1 bg-secondary-green mt-4"></span>
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-12">
+            <div class="bg-white rounded-lg shadow-md p-8 hover:shadow-xl transition-shadow duration-300">
+                <h3 class="text-2xl font-bold mb-4 text-dark-green">THE CITY</h3>
+                <p class="text-gray-700 mb-4">The foundation for managing urban heat in city areas is to gain knowledge about temperature distribution and identify critical hot spots. The tools we offer can be used to perform area-wide thermal analysis or be used for detailed neighborhood assessments.</p>
+                <p class="text-gray-700">An unquestionable advantage of the Urban Green Mapping Tool is that it can be used to identify and monitor individual heat islands that pose a threat to public health, or to conduct citywide analyses, e.g., to build a climate change adaptation strategy or to determine the direction of development and green investments in the city.</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-8 hover:shadow-xl transition-shadow duration-300">
+                <h3 class="text-2xl font-bold mb-4 text-dark-green">INFRASTRUCTURE</h3>
+                <p class="text-gray-700 mb-4">Trees have a positive impact on living conditions in urban areas. They reduce noise and pollution and regulate the air temperature and humidity. Strategic tree placement around infrastructure can significantly reduce cooling costs and improve resident comfort.</p>
+                <p class="text-gray-700">With the Urban Green Mapping Tool, you can accurately assess the spatial relationship between heat zones and infrastructure and take action to improve thermal comfort and energy efficiency in buildings and public spaces.</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-8 hover:shadow-xl transition-shadow duration-300">
+                <h3 class="text-2xl font-bold mb-4 text-dark-green">NATURAL ENVIRONMENT</h3>
+                <p class="text-gray-700 mb-4">The trees have economic, protective, recreational, and landscape functions. They also provide many ecosystem services. They mitigate the negative effects of climate change, produce vital oxygen, and store CO2.</p>
+                <p class="text-gray-700">Whether we are talking about individual trees, stands, natural forests, or commercial forests, it is important to monitor the performance of trees. This provides useful knowledge for the sustainable management of the areas where they grow.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-light-grey py-20">
+    <div class="container mx-auto px-4">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-6">Ready to make your city cooler and greener?</h2>
+        <p class="text-xl text-center mb-10 max-w-3xl mx-auto">Get started with our Urban Green Mapping Tool today and transform your city planning with data-driven insights.</p>
+        <div class="text-center">
+            <a href="{{ url_for('contact') }}" class="inline-block bg-secondary-green hover:bg-primary-green text-white font-bold uppercase py-4 px-8 rounded-lg shadow-lg transform hover:scale-105 transition-all duration-300 ease-in-out tracking-wide relative overflow-hidden group">
+                <span class="relative z-10">CONTACT US</span>
+                <span class="absolute inset-0 bg-gradient-to-r from-primary-green to-secondary-green opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const heroSection = document.getElementById('hero-section');
+        if (heroSection) {
+            heroSection.style.backgroundImage = "url('{{ url_for('static', filename='img/bgimage.jpeg') }}')";
+        }
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,337 @@
+{% extends 'base.html' %}
+
+{% block title %}Urban Green Mapping Tool - Green Map{% endblock %}
+
+{% block content %}
+<section class="hero mini-hero">
+    <div class="hero-content">
+        <h1>MY GREEN MAP</h1>
+    </div>
+</section>
+
+<section class="section map-section">
+    <div class="container">
+        <h2 class="section-title">Interactive Urban Heat Map</h2>
+        <p class="section-description">Explore urban heat patterns and green coverage in cities. This interactive tool helps you visualize temperature distribution and identify areas that would benefit from strategic greening interventions.</p>
+
+        <div class="map-controls">
+            <div class="control-group">
+                <label for="city-select">Select City:</label>
+                <select id="city-select" class="form-control">
+                    <option value="demo">Demo City</option>
+                    <option value="new-york">New York</option>
+                    <option value="los-angeles">Los Angeles</option>
+                    <option value="chicago">Chicago</option>
+                    <option value="custom">Custom Area (Upload)</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="map-type">Map Type:</label>
+                <select id="map-type" class="form-control">
+                    <option value="heat">Heat Map</option>
+                    <option value="green">Green Coverage</option>
+                    <option value="combined">Combined View</option>
+                    <option value="cooling">Cooling Potential</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="time-period">Time Period:</label>
+                <select id="time-period" class="form-control">
+                    <option value="current">Current</option>
+                    <option value="summer">Summer Peak</option>
+                    <option value="historical">Historical Comparison</option>
+                    <option value="future">Future Projection</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="map-container">
+            <div id="map">
+                <!-- Map will be rendered here by JavaScript -->
+                <img src="{{ url_for('static', filename='img/demo-map.svg') }}" alt="Demo Heat Map" class="demo-map">
+            </div>
+            <div class="map-legend">
+                <h3>Temperature Legend</h3>
+                <div class="legend-gradient">
+                    <div class="gradient"></div>
+                    <div class="legend-labels">
+                        <span>Low</span>
+                        <span>Medium</span>
+                        <span>High</span>
+                    </div>
+                </div>
+                <div class="legend-items">
+                    <div class="legend-item">
+                        <div class="legend-color green"></div>
+                        <span>Tree Canopy</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color building"></div>
+                        <span>Buildings</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color road"></div>
+                        <span>Roads</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color water"></div>
+                        <span>Water Bodies</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="map-analysis">
+            <h3>Area Analysis</h3>
+            <div class="analysis-stats">
+                <div class="stat-card">
+                    <div class="stat-value">32.5°C</div>
+                    <div class="stat-label">Average Temperature</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">24%</div>
+                    <div class="stat-label">Tree Canopy Coverage</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">42%</div>
+                    <div class="stat-label">Impervious Surface</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">3.2°C</div>
+                    <div class="stat-label">Potential Cooling</div>
+                </div>
+            </div>
+            <div class="recommendations">
+                <h3>Greening Recommendations</h3>
+                <ul>
+                    <li>Increase tree canopy in the northeastern sector where temperatures exceed 35°C.</li>
+                    <li>Add shade trees along major roadways to reduce surface temperatures.</li>
+                    <li>Consider green roof installations on large commercial buildings in the city center.</li>
+                    <li>Develop pocket parks in residential areas with limited green space.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="cta-container">
+            <h3>Need a customized analysis?</h3>
+            <p>Contact us for detailed heat mapping and strategic greening recommendations tailored to your specific area.</p>
+            <a href="{{ url_for('contact') }}" class="cta-button">REQUEST CUSTOM ANALYSIS</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_css %}
+<style>
+    .mini-hero {
+        height: 40vh;
+    }
+
+    .map-section {
+        padding-bottom: 5rem;
+    }
+
+    .map-controls {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin: 2rem 0;
+    }
+
+    .control-group {
+        flex: 1 0 calc(33.333% - 1rem);
+        min-width: 200px;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 0.75rem;
+        border: 1px solid var(--border-grey);
+        border-radius: 4px;
+        font-size: 1rem;
+        margin-top: 0.5rem;
+    }
+
+    .map-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2rem;
+        margin: 2rem 0;
+    }
+
+    #map {
+        flex: 1 0 70%;
+        min-width: 300px;
+        height: 500px;
+        background-color: #eee;
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .demo-map {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .map-legend {
+        flex: 1 0 calc(30% - 2rem);
+        min-width: 200px;
+        padding: 1.5rem;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .legend-gradient {
+        margin: 1.5rem 0;
+    }
+
+    .gradient {
+        height: 20px;
+        width: 100%;
+        background: linear-gradient(to right, #3d4db7, #62bb47, #fbb040, #ef4136);
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+    }
+
+    .legend-labels {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .legend-items {
+        margin-top: 1.5rem;
+    }
+
+    .legend-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+    }
+
+    .legend-color {
+        width: 20px;
+        height: 20px;
+        margin-right: 0.5rem;
+        border-radius: 2px;
+    }
+
+    .green {
+        background-color: #62bb47;
+    }
+
+    .building {
+        background-color: #999;
+    }
+
+    .road {
+        background-color: #444;
+    }
+
+    .water {
+        background-color: #3d4db7;
+    }
+
+    .map-analysis {
+        margin: 3rem 0;
+    }
+
+    .analysis-stats {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+    }
+
+    .stat-card {
+        flex: 1 0 calc(25% - 1.5rem);
+        min-width: 150px;
+        padding: 1.5rem;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+    }
+
+    .stat-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--dark-green);
+        margin-bottom: 0.5rem;
+    }
+
+    .recommendations {
+        margin: 2rem 0;
+        padding: 1.5rem;
+        background-color: #f5f5f5;
+        border-radius: 8px;
+    }
+
+    .recommendations ul {
+        margin-top: 1rem;
+        padding-left: 1.5rem;
+    }
+
+    .recommendations li {
+        margin-bottom: 0.5rem;
+    }
+
+    .cta-container {
+        text-align: center;
+        margin: 3rem 0;
+        padding: 2rem;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    @media (max-width: 768px) {
+        .map-container {
+            flex-direction: column;
+        }
+
+        .map-legend {
+            width: 100%;
+        }
+
+        .stat-card {
+            flex: 1 0 calc(50% - 1.5rem);
+        }
+    }
+</style>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Map type change handling
+        const mapTypeSelect = document.getElementById('map-type');
+        if (mapTypeSelect) {
+            mapTypeSelect.addEventListener('change', function() {
+                // In a real application, this would update the map visualization
+                console.log('Map type changed to: ' + this.value);
+            });
+        }
+
+        // City selection handling
+        const citySelect = document.getElementById('city-select');
+        if (citySelect) {
+            citySelect.addEventListener('change', function() {
+                // In a real application, this would load different city data
+                console.log('City changed to: ' + this.value);
+            });
+        }
+
+        // Time period handling
+        const timePeriodSelect = document.getElementById('time-period');
+        if (timePeriodSelect) {
+            timePeriodSelect.addEventListener('change', function() {
+                // In a real application, this would update the time period of data
+                console.log('Time period changed to: ' + this.value);
+            });
+        }
+    });
+</script>
+{% endblock %}

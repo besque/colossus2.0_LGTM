@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Urban Green Mapping Tool{% endblock %}</title>
+    <meta name="description" content="{% block description %}The Urban Green Mapping Tool is a Python-based solution designed to tackle urban heat islands. It leverages satellite heatmaps, road and rooftop data, and environmental insights to pinpoint overheated zones in cities and recommend strategic greening interventions.{% endblock %}">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Karla:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary-green': '#63ab4a',
+                        'secondary-green': '#94c937',
+                        'dark-green': '#334232',
+                        'light-grey': '#fbfbfb',
+                        'medium-grey': '#99a1a9',
+                        'brown': '#954d35',
+                        'light-green': '#d8df8b',
+                        'border-grey': '#c8cdd0',
+                        'tan': '#caa79d',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="font-sans text-dark-green">
+    <header class="absolute w-full z-10 py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <div class="flex items-center">
+                <a href="{{ url_for('index') }}" class="block">
+                    <img src="{{ url_for('static', filename='img/gglogo.webp') }}" alt="Urban Green Mapping Tool Logo" class="h-24 w-auto">
+                </a>
+            </div>
+            <nav class="hidden md:block">
+                <ul class="flex space-x-8">
+                    <li><a href="{{ url_for('map') }}" class="text-white font-bold uppercase px-4 py-2 rounded hover:bg-white/20 transition-colors duration-300">My Green Map</a></li>
+                    <li><a href="{{ url_for('news') }}" class="text-white font-bold uppercase px-4 py-2 rounded hover:bg-white/20 transition-colors duration-300">News</a></li>
+                    <li><a href="{{ url_for('contact') }}" class="text-white font-bold uppercase px-4 py-2 rounded hover:bg-white/20 transition-colors duration-300">Contact</a></li>
+                </ul>
+            </nav>
+            <button class="md:hidden text-white">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-dark-green text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Urban Green Mapping Tool</h3>
+                    <p class="mb-4">Making cities cooler, greener, and more livable with data-driven insights.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-bold mb-4">Contact Us</h4>
+                    <a href="{{ url_for('contact') }}" class="inline-block bg-secondary-green hover:bg-primary-green text-white font-bold uppercase py-2 px-4 rounded-lg shadow-md transform hover:scale-105 transition-all duration-300 ease-in-out tracking-wide">CONTACT</a>
+                </div>
+                <div>
+                    <div class="flex space-x-4">
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="text-white hover:text-secondary-green transition-colors duration-300">Facebook</a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="text-white hover:text-secondary-green transition-colors duration-300">Twitter</a>
+                        <a href="#" target="_blank" rel="noopener noreferrer" class="text-white hover:text-secondary-green transition-colors duration-300">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="mb-4 md:mb-0">Copyright © 2025 Urban Green Mapping Tool</p>
+                <ul class="flex space-x-4">
+                    <li><a href="#" class="text-white hover:text-secondary-green transition-colors duration-300">Terms and Conditions</a></li>
+                    <li><a href="#" class="text-white hover:text-secondary-green transition-colors duration-300">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
