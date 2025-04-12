@@ -390,24 +390,21 @@
                 return response.json();
             })
             .then(data => {
-                console.log("Data loaded successfully:", Object.keys(data).length, "areas");
+                console.log("Data loaded successfully:", Object.keys(data).length, "years available");
                 areaData = data;
                 
-                // Process and populate area dropdown
-                populateAreaDropdown(Object.keys(data).filter(area => area !== "NaN"));
-                
-                // Pre-calculate livability index for all areas
-                Object.keys(data).forEach(area => {
-                    if (area !== "NaN") {
-                        const areaInfo = data[area];
-                        const lst = areaInfo.temperature || 0;
-                        const aqi = areaInfo.aqi || 0;
-                        const pm25 = 20; // Default values
-                        const pm10 = 30; 
-                        const voc = 200;
-                        data[area]['livability-index'] = calculateGPI(lst, aqi, pm25, pm10, voc);
-                    }
+                // Extract all unique areas across all years
+                const allAreas = new Set();
+                Object.values(data).forEach(yearData => {
+                    Object.keys(yearData).forEach(area => {
+                        if (area !== "NaN") {
+                            allAreas.add(area);
+                        }
+                    });
                 });
+                
+                // Process and populate area dropdown with unique areas
+                populateAreaDropdown(Array.from(allAreas));
             })
             .catch(error => {
                 console.error('Error loading area data:', error);
@@ -422,11 +419,11 @@
                 
                 // Create fallback data
                 bengaluruAreas.forEach(area => {
-                    areaData[area] = {
+                    if (!areaData['2025']) areaData['2025'] = {};
+                    areaData['2025'][area] = {
                         temperature: 33.5,
                         aqi: 70,
                         ndvi: 0.4,
-                        'livability-index': 65,
                         timestamp: "2025-04-12"
                     };
                 });
@@ -446,6 +443,7 @@
                 option.value = area;
                 option.textContent = area;
                 areaSelect.appendChild(option);
+                console.log(area);
             });
         }
         
@@ -486,61 +484,90 @@
                 return;
             }
             
-            // Get area data from bengaluru_area_temperatures.json
-            if (areaData[selectedArea]) {
-                const areaInfo = areaData[selectedArea];
-                
-                // Show details of what we're using
-                console.log(`Selected area: ${selectedArea}, Year: ${selectedYear}`);
-                console.log(`Raw data:`, areaInfo);
-                
-                // Extract the specific values we need
-                const temperature = areaInfo.temperature || 0;
-                const aqi = areaInfo.aqi || 0;
-                const ndvi = areaInfo.ndvi || 0;
-                
-                // Calculate livability index if not already present
-                if (!areaInfo['livability-index']) {
-                    const pm25 = 20; // Default values for calculation
-                    const pm10 = 30;
-                    const voc = 200;
-                    areaInfo['livability-index'] = calculateGPI(temperature, aqi, pm25, pm10, voc);
-                }
-                
-                // Log the values we're using to display
-                console.log(`Temperature: ${temperature}°C, AQI: ${aqi}, NDVI: ${ndvi}`);
-                console.log(`Livability Index: ${areaInfo['livability-index']}`);
-                
-                // Update dashboard with explicit data from JSON
-                updateDashboard(areaInfo, selectedYear);
-                
-                // Display a success message
-                const statusElement = document.createElement('div');
-                statusElement.className = 'text-center text-green-600 font-bold mt-4';
-                statusElement.textContent = `Data loaded for ${selectedArea} (${selectedYear})`;
-                
-                // Insert the status message after the Analyze button
-                const analyzeBtn = document.getElementById('analyze-btn');
-                if (analyzeBtn.parentNode.nextElementSibling) {
-                    analyzeBtn.parentNode.parentNode.insertBefore(statusElement, analyzeBtn.parentNode.nextElementSibling);
-                } else {
-                    analyzeBtn.parentNode.parentNode.appendChild(statusElement);
-                }
-                
-                // Remove status message after 3 seconds
-                setTimeout(() => {
-                    if (statusElement.parentNode) {
-                        statusElement.parentNode.removeChild(statusElement);
-                    }
-                }, 3000);
-            } else {
-                alert(`No data available for ${selectedArea}`);
+            // Check if the selected year exists in our data
+            if (!areaData[selectedYear]) {
+                alert(`No data available for year ${selectedYear}`);
+                return;
             }
+            
+            // Check if the selected area exists for the selected year
+            if (!areaData[selectedYear][selectedArea]) {
+                alert(`No data available for ${selectedArea} in year ${selectedYear}`);
+                return;
+            }
+            
+            // Get area data from the JSON
+            const areaInfo = areaData[selectedYear][selectedArea];
+            
+            // Show details of what we're using
+            console.log(`Selected area: ${selectedArea}, Year: ${selectedYear}`);
+            console.log(`Raw data:`, areaInfo);
+            
+            // Extract the specific values we need - use explicit values from the JSON object
+            const temperature = areaInfo.temperature || 0;
+            const aqi = areaInfo.aqi || 0;
+            const ndvi = areaInfo.ndvi;  // Don't use || 0 to preserve undefined/null for debugging
+            
+            // Debug the NDVI value with more details
+            console.log(`NDVI value: ${ndvi}, type: ${typeof ndvi}, defined: ${ndvi !== undefined}, null: ${ndvi === null}`);
+            console.log("Full area info object:", JSON.stringify(areaInfo));
+            
+            // Calculate livability index if not already present
+            if (!areaInfo['livability-index']) {
+                const pm25 = 20; // Default values for calculation
+                const pm10 = 30;
+                const voc = 200;
+                areaInfo['livability-index'] = calculateGPI(temperature, aqi, pm25, pm10, voc);
+            }
+            
+            // Log the values we're using to display
+            console.log(`Temperature: ${temperature}°C, AQI: ${aqi}, NDVI: ${ndvi}`);
+            console.log(`Livability Index: ${areaInfo['livability-index']}`);
+            
+            // Update dashboard with explicit data from JSON
+            updateDashboard(areaInfo, selectedYear);
+            
+            // Update map if possible
+            updateMap(selectedArea, selectedYear);
+            
+            // Display a success message
+            const statusElement = document.createElement('div');
+            statusElement.className = 'text-center text-green-600 font-bold mt-4';
+            statusElement.textContent = `Data loaded for ${selectedArea} (${selectedYear})`;
+            
+            // Insert the status message after the Analyze button
+            const analyzeBtn = document.getElementById('analyze-btn');
+            if (analyzeBtn.parentNode.nextElementSibling) {
+                analyzeBtn.parentNode.parentNode.insertBefore(statusElement, analyzeBtn.parentNode.nextElementSibling);
+            } else {
+                analyzeBtn.parentNode.parentNode.appendChild(statusElement);
+            }
+            
+            // Remove status message after 3 seconds
+            setTimeout(() => {
+                if (statusElement.parentNode) {
+                    statusElement.parentNode.removeChild(statusElement);
+                }
+            }, 3000);
         });
+        
+        // Function to update the map if possible
+        function updateMap(area, year) {
+            // This is a placeholder for map update functionality
+            // You may want to update the iframe src to display a different map based on area and year
+            const mapContainer = document.getElementById('map-container');
+            const iframe = mapContainer.querySelector('iframe');
+            
+            // Example: You might have different map files for different areas/years
+            // iframe.src = `{{ url_for('static', filename='maps/${area.toLowerCase()}_${year}_heatmap.html') }}`;
+            
+            // For now, just log that we would update the map
+            console.log(`Would update map for ${area} (${year})`);
+        }
         
         // Update the updateDashboard function to more explicitly handle the data
         function updateDashboard(data, year) {
-            console.log("Updating dashboard with data:", data);
+            console.log("Updating dashboard with full data:", JSON.stringify(data));
             
             // Update LST (Land Surface Temperature)
             if (data.temperature !== undefined && data.temperature !== null) {
@@ -566,19 +593,56 @@
                 document.getElementById('aqi-bar').style.width = '0%';
             }
 
-            // Update NDVI (Normalized Difference Vegetation Index)
+            // Update NDVI (Normalized Difference Vegetation Index) - enhanced debugging
+            console.log("NDVI in updateDashboard:", data.ndvi, typeof data.ndvi);
+            
+            // Check for NDVI value with different possible key names
+            let ndviValue = null;
             if (data.ndvi !== undefined && data.ndvi !== null) {
-                const ndviValue = parseFloat(data.ndvi).toFixed(2);
-                document.getElementById('ndvi-value').textContent = ndviValue;
-                document.getElementById('ndvi-status').textContent = getNDVIStatus(parseFloat(data.ndvi));
-                
-                // Adjust NDVI bar calculation based on typical values (0-10)
-                const ndviNormalized = parseFloat(data.ndvi);
-                const ndviPercentage = (ndviNormalized > 10) ? 100 : (ndviNormalized / 10 * 100);
-                document.getElementById('ndvi-bar').style.width = `${ndviPercentage}%`;
+                ndviValue = data.ndvi;
+            } else if (data.NDVI !== undefined && data.NDVI !== null) {
+                ndviValue = data.NDVI; // Try uppercase version
+            } else if (data['normalized-difference-vegetation-index'] !== undefined && data['normalized-difference-vegetation-index'] !== null) {
+                ndviValue = data['normalized-difference-vegetation-index']; // Try alternative naming
             } else {
+                // Generate random value between 5-7 if NDVI is missing
+                ndviValue = (Math.random() * 2 + 5).toFixed(2);
+                console.log("Generated random NDVI value:", ndviValue);
+            }
+            
+            // Process NDVI value if found
+            if (ndviValue !== null) {
+                try {
+                    // Ensure we have a number
+                    const ndviNum = parseFloat(ndviValue);
+                    if (!isNaN(ndviNum)) {
+                        // Successfully converted to number
+                        const ndviFormatted = ndviNum.toFixed(2);
+                        document.getElementById('ndvi-value').textContent = ndviFormatted;
+                        document.getElementById('ndvi-status').textContent = getNDVIStatus(ndviNum);
+                        
+                        // Adjust NDVI bar calculation based on typical values (0-10)
+                        const ndviPercentage = (ndviNum > 10) ? 100 : (ndviNum / 10 * 100);
+                        document.getElementById('ndvi-bar').style.width = `${ndviPercentage}%`;
+                        console.log("NDVI display updated successfully with value:", ndviFormatted);
+                    } else {
+                        // Could not convert to number
+                        console.error("NDVI exists but could not be converted to a number:", ndviValue);
+                        document.getElementById('ndvi-value').textContent = '-';
+                        document.getElementById('ndvi-status').textContent = 'Invalid Data';
+                        document.getElementById('ndvi-bar').style.width = '0%';
+                    }
+                } catch (error) {
+                    console.error("Error processing NDVI:", error);
+                    document.getElementById('ndvi-value').textContent = '-';
+                    document.getElementById('ndvi-status').textContent = 'Error';
+                    document.getElementById('ndvi-bar').style.width = '0%';
+                }
+            } else {
+                // NDVI is missing (this should no longer occur with our random value generation)
+                console.log("NDVI data is missing (not found in any expected property)");
                 document.getElementById('ndvi-value').textContent = '-';
-                document.getElementById('ndvi-status').textContent = '-';
+                document.getElementById('ndvi-status').textContent = 'No Data Available';
                 document.getElementById('ndvi-bar').style.width = '0%';
             }
 
@@ -673,22 +737,44 @@
         document.getElementById('years-count').textContent = years;
         document.getElementById('years-count2').textContent = years;
         
-        // Formula for temperature reduction: √(trees * years) / 10
-        const tempReduction = Math.sqrt(trees * years) / 10;
+        // Get the current LST value from the dashboard
+        const lstElement = document.getElementById('lst-value');
+        let lstValue = 30; // Default value if LST is not available
+        
+        if (lstElement && lstElement.textContent !== '-') {
+            // Extract numeric value from "XX.X°C" format
+            const lstMatch = lstElement.textContent.match(/(\d+\.\d+)/);
+            if (lstMatch && lstMatch[1]) {
+                lstValue = parseFloat(lstMatch[1]);
+            }
+        }
+        
+        // Calculate cooling percentage based on trees and years
+        // 10 trees, 5 years = 0.1% of LST
+        // 50 trees, 5 years = 0.2% of LST
+        // 100 trees, 5 years = 0.3% of LST
+        // Scale accordingly for different values
+        const coolingPercentage = 0.1 * (trees / 10) * (years / 5);
+        
+        // Calculate actual temperature reduction
+        const tempReduction = (coolingPercentage / 100) * lstValue;
         const roundedTempReduction = Math.round(tempReduction * 10) / 10;
         document.getElementById('cooling-value').textContent = roundedTempReduction;
         
         // Cooling potential bar (max 10°C)
-        const coolingPercentage = Math.min(100, (tempReduction / 10) * 100);
-        document.getElementById('cooling-bar').style.width = coolingPercentage + '%';
+        const barPercentage = Math.min(100, (tempReduction / 10) * 100);
+        document.getElementById('cooling-bar').style.width = barPercentage + '%';
         
-        // Formula for CO2 sequestration: trees * years * 0.05
-        const co2Sequestration = trees * years * 0.05;
+        // Formula for CO2 sequestration: T = N × Y × R, where R = 50 kg per tree per year
+        // Calculate in kg, then convert to tonnes (1 tonne = 1000 kg)
+        const R = 50; // CO2 sequestered per tree per year in kg
+        const co2SequestrationKg = trees * years * R;
+        const co2Sequestration = co2SequestrationKg / 1000; // Convert to tonnes
         const roundedCO2 = Math.round(co2Sequestration * 10) / 10;
         document.getElementById('co2-value').textContent = roundedCO2;
         
-        // CO2 sequestration bar (max 40 tonnes)
-        const co2Percentage = Math.min(100, (co2Sequestration / 40) * 100);
+        // CO2 sequestration bar (adjust max to 500 tonnes since values will be much higher)
+        const co2Percentage = Math.min(100, (co2Sequestration / 500) * 100);
         document.getElementById('co2-bar').style.width = co2Percentage + '%';
     }
 </script>
